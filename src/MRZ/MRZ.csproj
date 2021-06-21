@@ -7,7 +7,8 @@
     <PackageTags>checker;parser;passport;icao;visas;mrz;id-card;icao-codes;travel-documents;td1;td2;td3;mrva;mrvb</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Add WebHosting Certificate to Identity Server 4</Description>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>MRZ Parser</Description>
     <RepositoryUrl>https://github.com/GioviQ/MRZ</RepositoryUrl>
     <PackageProjectUrl>https://github.com/GioviQ/MRZ</PackageProjectUrl>
   </PropertyGroup>
