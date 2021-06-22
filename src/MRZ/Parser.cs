@@ -56,7 +56,7 @@ namespace MRZ
 
         private void setNames(Document doc, string group)
         {
-            var names = group.Trim(filler).Split($"{filler}{filler}");
+            var names = group.Trim(filler).Split(new string[] { $"{filler}{filler}" }, StringSplitOptions.RemoveEmptyEntries);
 
             doc.Surname = names[0].Replace($"{filler}", " ");
             doc.Name = names[1].Replace($"{filler}", " ");
@@ -74,15 +74,15 @@ namespace MRZ
                     break;
 
                 case size2 * 2:
-                    doc.Format = mrz.StartsWith('V') ? MrzFormat.MRVB : MrzFormat.TD2;
+                    doc.Format = mrz.StartsWith("V") ? MrzFormat.MRVB : MrzFormat.TD2;
                     break;
 
                 case size3 * 2:
-                    doc.Format = mrz.StartsWith('V') ? MrzFormat.MRVA : MrzFormat.TD3;
+                    doc.Format = mrz.StartsWith("V") ? MrzFormat.MRVA : MrzFormat.TD3;
                     break;
             }
 
-            switch(doc.Format)
+            switch (doc.Format)
             {
                 case MrzFormat.TD1:
                     var regEx = new Regex($"([A|C|I][A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z0-9{filler}]{{15}})");

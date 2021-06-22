@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.1</Version>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Version>0.1.1</Version>
     <Authors>Giovanni Quarella</Authors>
     <PackageTags>checker;parser;passport;icao;visas;mrz;id-card;icao-codes;travel-documents;td1;td2;td3;mrva;mrvb</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
