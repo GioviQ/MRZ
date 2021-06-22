@@ -126,6 +126,9 @@ namespace MRZ
                     if (!checkValidity(line2, 8, 13, 14))
                         throw new Exception("Expiration date check failed");
 
+                    if (doc.ExpirationDate < doc.BirthDate)
+                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+
                     doc.Nationality = match.Groups[6].Value;
                     doc.OptionalData2 = match.Groups[7].Value.Trim(filler);
 
@@ -192,6 +195,9 @@ namespace MRZ
                     if (!checkValidity(line2, 21, 26, 27))
                         throw new Exception("Expiration date check failed");
 
+                    if (doc.ExpirationDate < doc.BirthDate)
+                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
 
                     sum = 0;
@@ -245,6 +251,9 @@ namespace MRZ
                     }
 
                     doc.ExpirationDate = parseDate(match.Groups[7].Value);
+
+                    if (doc.ExpirationDate < doc.BirthDate)
+                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
 
                     if (!checkValidity(line2, 21, 26, 27))
                         throw new Exception("Expiration date check failed");
@@ -309,6 +318,9 @@ namespace MRZ
                     if (!checkValidity(line2, 21, 26, 27))
                         throw new Exception("Expiration date check failed");
 
+                    if (doc.ExpirationDate < doc.BirthDate)
+                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
                     break;
 
@@ -356,6 +368,9 @@ namespace MRZ
 
                     if (!checkValidity(line2, 21, 26, 27))
                         throw new Exception("Expiration date check failed");
+
+                    if (doc.ExpirationDate < doc.BirthDate)
+                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
                     break;
