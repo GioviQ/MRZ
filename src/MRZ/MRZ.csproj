@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>preview</LangVersion>
-    <Version>0.1.2</Version>
+    <Version>1.0</Version>
     <Authors>Giovanni Quarella</Authors>
     <PackageTags>checker;parser;passport;icao;visas;mrz;id-card;icao-codes;travel-documents;td1;td2;td3;mrva;mrvb</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

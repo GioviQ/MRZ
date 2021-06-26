@@ -85,7 +85,7 @@ namespace MRZ
             switch (doc.Format)
             {
                 case MrzFormat.TD1:
-                    var regEx = new Regex($"([A|C|I][A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z0-9{filler}]{{15}})");
+                    var regEx = new Regex($"([A|C|I][A-Z0-9{filler}]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{9}})([0-9{filler}]{{1}})([A-Z0-9{filler}]{{15}})");
 
                     var line1 = mrz.Substring(0, size1);
 
@@ -95,12 +95,12 @@ namespace MRZ
                     doc.CountryCode = match.Groups[2].Value;
                     doc.Number = match.Groups[3].Value.Trim(filler);
 
-                    if (!checkValidity(line1, 5, 13, 14))
+                    if (doc.Number != string.Empty && match.Groups[4].Value.Trim(filler) != string.Empty && !checkValidity(line1, 5, 13, 14))
                         throw new Exception("Document number check failed");
 
                     doc.OptionalData1 = match.Groups[5].Value.Trim(filler);
 
-                    regEx = new Regex($"([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{11}})([0-9]{{1}})");
+                    regEx = new Regex($"([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{11}})([0-9]{{1}})");
 
                     var line2 = mrz.Substring(size1, size1);
 
@@ -151,7 +151,7 @@ namespace MRZ
                     break;
 
                 case MrzFormat.TD2:
-                    regEx = new Regex($"([A|C|I][A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{31}})");
+                    regEx = new Regex($"([A|C|I][A-Z0-9{filler}]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{31}})");
 
                     line1 = mrz.Substring(0, size2);
 
@@ -162,7 +162,7 @@ namespace MRZ
 
                     setNames(doc, match.Groups[3].Value);
 
-                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{7}})([0-9]{{1}})");
+                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9{filler}]{{1}})([A-Z{filler}]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{7}})([0-9]{{1}})");
 
                     line2 = mrz.Substring(size2, size2);
 
@@ -170,7 +170,7 @@ namespace MRZ
 
                     doc.Number = match.Groups[1].Value.Trim(filler);
 
-                    if (!checkValidity(line2, 0, 8, 9))
+                    if (doc.Number != string.Empty && !checkValidity(line2, 0, 8, 9))
                         throw new Exception("Document number check failed");
 
                     doc.Nationality = match.Groups[3].Value;
@@ -211,7 +211,7 @@ namespace MRZ
                     break;
 
                 case MrzFormat.TD3:
-                    regEx = new Regex($"(P[A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{39}})");
+                    regEx = new Regex($"(P[A-Z0-9{filler}]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{39}})");
 
                     line1 = mrz.Substring(0, size3);
 
@@ -222,7 +222,7 @@ namespace MRZ
 
                     setNames(doc, match.Groups[3].Value);
 
-                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{14}})([0-9]{{1}})([0-9]{{1}})");
+                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z{filler}]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{14}})([0-9{filler}]{{1}})([0-9]{{1}})");
 
                     line2 = mrz.Substring(size3, size3);
 
@@ -260,7 +260,7 @@ namespace MRZ
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
 
-                    if (!checkValidity(line2, 28, 41, 42))
+                    if (doc.OptionalData1 != string.Empty && !checkValidity(line2, 28, 41, 42))
                         throw new Exception("Optional data 1 check failed");
 
                     sum = 0;
@@ -274,7 +274,7 @@ namespace MRZ
                     break;
 
                 case MrzFormat.MRVA:
-                    regEx = new Regex($"(V[A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{39}})");
+                    regEx = new Regex($"(V[A-Z0-9{filler}]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{39}})");
 
                     line1 = mrz.Substring(0, size3);
 
@@ -285,7 +285,7 @@ namespace MRZ
 
                     setNames(doc, match.Groups[3].Value);
 
-                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{16}})");
+                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z{filler}]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{16}})");
 
                     line2 = mrz.Substring(size3, size3);
 
@@ -325,7 +325,7 @@ namespace MRZ
                     break;
 
                 case MrzFormat.MRVB:
-                    regEx = new Regex($"(V[A-Z0-9{filler}]{{1}})([A-Z]{{3}})([A-Z0-9{filler}]{{31}})");
+                    regEx = new Regex($"(V[A-Z0-9{filler}]{{1}})([A-Z{filler}]{{3}})([A-Z0-9{filler}]{{31}})");
 
                     line1 = mrz.Substring(0, 36);
 
@@ -336,7 +336,7 @@ namespace MRZ
 
                     setNames(doc, match.Groups[3].Value);
 
-                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{8}})");
+                    regEx = new Regex($"([A-Z0-9{filler}]{{9}})([0-9]{{1}})([A-Z{filler}]{{3}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{6}})([0-9]{{1}})([A-Z0-9{filler}]{{8}})");
 
                     line2 = mrz.Substring(36, 36);
 

@@ -29,6 +29,24 @@ ERIKSSON<<ANNA<MARIA<<<<<<<<<<");
             Assert.AreEqual(doc.OptionalData2, string.Empty, "Wrong document optional data 2");
             Assert.AreEqual(doc.Surname, "ERIKSSON", "Wrong surname");
             Assert.AreEqual(doc.Name, "ANNA MARIA", "Wrong name");
+
+            doc = parser.DetectFields(
+@"I<PRT000024759<ZZ72<<<<<<<<<<<
+8010100F2006017PRT<<<<<<<<<<<8
+CARLOS<MONTEIRO<<AMELIA<VANESS");
+
+            Assert.AreEqual(doc.Format, MrzFormat.TD1, "Wrong document format");
+            Assert.AreEqual(doc.Type, "I", "Wrong document type");
+            Assert.AreEqual(doc.CountryCode, "PRT", "Wrong document country code");
+            Assert.AreEqual(doc.Number, "000024759", "Wrong document number");
+            Assert.AreEqual(doc.OptionalData1, "ZZ72", "Wrong document optional data 1");
+            Assert.AreEqual(doc.BirthDate, new DateTime(1980, 10, 10), "Wrong birth date");
+            Assert.AreEqual(doc.Gender, Gender.Female, "Wrong gender");
+            Assert.AreEqual(doc.ExpirationDate, new DateTime(2020, 6, 1), "Wrong expiration date");
+            Assert.AreEqual(doc.Nationality, "PRT", "Wrong nationality country code");
+            Assert.AreEqual(doc.OptionalData2, string.Empty, "Wrong document optional data 2");
+            Assert.AreEqual(doc.Surname, "CARLOS MONTEIRO", "Wrong surname");
+            Assert.AreEqual(doc.Name, "AMELIA VANESS", "Wrong name");
         }
 
         [TestMethod]
