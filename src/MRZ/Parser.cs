@@ -137,7 +137,7 @@ namespace MRZ
                     computeWeightedSum(line1, 5, 29, 0);
                     computeWeightedSum(line2, 0, 6, 25);
                     computeWeightedSum(line2, 8, 14, 32);
-                    computeWeightedSum(line2, 18, 28, 43);
+                    computeWeightedSum(line2, 18, 28, 39);
 
                     if ((sum % 10) != mappedValues[line2[29]])
                         throw new Exception("upper and middle lines check failed");
