@@ -8,7 +8,7 @@ namespace MRZ
     {
         private char filler = '<';
         private static readonly int[] weights = { 7, 3, 1 };
-        private readonly Dictionary<char, int> mappedValues = new Dictionary<char, int>();
+        private readonly Dictionary<char, int> mappedValues;
         private const string charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private int sum;
         private const int size1 = 30;
@@ -17,6 +17,8 @@ namespace MRZ
         public Parser(char filler = '<')
         {
             this.filler = filler;
+
+            mappedValues = new Dictionary<char, int>();
 
             for (int i = 0; i < charset.Length; ++i)
             {
@@ -91,6 +93,9 @@ namespace MRZ
 
                     var match = regEx.Match(line1);
 
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
                     doc.Type = match.Groups[1].Value.Trim(filler);
                     doc.CountryCode = match.Groups[2].Value;
                     doc.Number = match.Groups[3].Value.Trim(filler);
@@ -105,6 +110,9 @@ namespace MRZ
                     var line2 = mrz.Substring(size1, size1);
 
                     match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
 
                     doc.BirthDate = parseDate(match.Groups[1].Value);
 
@@ -147,6 +155,9 @@ namespace MRZ
 
                     match = regEx.Match(mrz.Substring(size1 * 2, size1));
 
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {mrz.Substring(size1 * 2, size1)}");
+
                     setNames(doc, match.Groups[1].Value);
                     break;
 
@@ -156,6 +167,9 @@ namespace MRZ
                     line1 = mrz.Substring(0, size2);
 
                     match = regEx.Match(line1);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
 
                     doc.Type = match.Groups[1].Value.Trim(filler);
                     doc.CountryCode = match.Groups[2].Value;
@@ -167,6 +181,9 @@ namespace MRZ
                     line2 = mrz.Substring(size2, size2);
 
                     match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
 
                     doc.Number = match.Groups[1].Value.Trim(filler);
 
@@ -217,6 +234,9 @@ namespace MRZ
 
                     match = regEx.Match(line1);
 
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
                     doc.Type = match.Groups[1].Value.Trim(filler);
                     doc.CountryCode = match.Groups[2].Value;
 
@@ -227,6 +247,9 @@ namespace MRZ
                     line2 = mrz.Substring(size3, size3);
 
                     match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
 
                     doc.Number = match.Groups[1].Value.Trim(filler);
 
@@ -280,6 +303,9 @@ namespace MRZ
 
                     match = regEx.Match(line1);
 
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
                     doc.Type = match.Groups[1].Value.Trim(filler);
                     doc.CountryCode = match.Groups[2].Value;
 
@@ -290,6 +316,9 @@ namespace MRZ
                     line2 = mrz.Substring(size3, size3);
 
                     match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
 
                     doc.Number = match.Groups[1].Value.Trim(filler);
 
@@ -331,6 +360,9 @@ namespace MRZ
 
                     match = regEx.Match(line1);
 
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
                     doc.Type = match.Groups[1].Value.Trim(filler);
                     doc.CountryCode = match.Groups[2].Value;
 
@@ -341,6 +373,9 @@ namespace MRZ
                     line2 = mrz.Substring(36, 36);
 
                     match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
 
                     doc.Number = match.Groups[1].Value.Trim(filler);
 
