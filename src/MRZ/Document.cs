@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MRZ
 {
@@ -10,7 +8,8 @@ namespace MRZ
         TD2,
         TD3,
         MRVA,
-        MRVB
+        MRVB,
+        IDFRA
     }
 
     public enum Gender

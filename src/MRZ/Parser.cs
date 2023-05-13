@@ -76,7 +76,7 @@ namespace MRZ
                     break;
 
                 case size2 * 2:
-                    doc.Format = mrz.StartsWith("V") ? MrzFormat.MRVB : MrzFormat.TD2;
+                    doc.Format = mrz.StartsWith("V") ? MrzFormat.MRVB : (mrz.StartsWith("IDFRA") ? MrzFormat.IDFRA : MrzFormat.TD2);
                     break;
 
                 case size3 * 2:
@@ -224,7 +224,7 @@ namespace MRZ
                     computeWeightedSum(line2, 21, 34, 17);
 
                     if ((sum % 10) != mappedValues[line2[35]])
-                        throw new Exception("upper and middle lines check failed");
+                        throw new Exception("upper and lower lines check failed");
                     break;
 
                 case MrzFormat.TD3:
@@ -293,7 +293,7 @@ namespace MRZ
                     computeWeightedSum(line2, 21, 42, 17);
 
                     if ((sum % 10) != mappedValues[line2[43]])
-                        throw new Exception("upper and middle lines check failed");
+                        throw new Exception("upper and lower lines check failed");
                     break;
 
                 case MrzFormat.MRVA:
@@ -408,6 +408,57 @@ namespace MRZ
                         doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
+                    break;
+
+                case MrzFormat.IDFRA:
+                    regEx = new Regex($"IDFRA([A-Z0-9{filler}]{{25}})([0-9{filler}]{{6}})");
+
+                    line1 = mrz.Substring(0, size2);
+
+                    match = regEx.Match(line1);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
+                    doc.Type = "ID";
+                    doc.Nationality = doc.CountryCode = "FRA";
+
+                    doc.Surname = match.Groups[1].Value.Trim(filler).Replace($"{filler}", " ");
+
+                    regEx = new Regex($"([A-Z0-9{filler}]{{12}})([0-9{filler}]{{1}})([A-Z{filler}]{{14}})([0-9]{{6}})([0-9]{{1}})([M|F|X|{filler}]{{1}})([0-9]{{1}})");
+
+                    line2 = mrz.Substring(size2, size2);
+
+                    match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
+
+                    doc.Number = match.Groups[1].Value.Trim(filler);
+
+                    if (doc.Number != string.Empty && !checkValidity(line2, 0, 11, 12))
+                        throw new Exception("Document number check failed");
+
+                    doc.Name = match.Groups[3].Value.Trim(filler).Replace($"{filler}{filler}", ", ").Replace($"{filler}", " ");
+
+                    doc.BirthDate = parseDate(match.Groups[4].Value);
+
+                    if (!checkValidity(line2, 27, 32, 33))
+                        throw new Exception("Birth date check failed");
+
+                    switch (match.Groups[6].Value.Trim(filler))
+                    {
+                        case "M":
+                            doc.Gender = Gender.Male;
+                            break;
+                        case "F":
+                            doc.Gender = Gender.Female;
+                            break;
+                    }
+
+                    if (!checkValidity(mrz, 0, size2 * 2 - 2, size2 * 2 - 1))
+                        throw new Exception("upper and lower lines check failed");
+
                     break;
             }
 

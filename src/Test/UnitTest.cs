@@ -155,5 +155,39 @@ L8988901C4XXX4009078F9612109<<<<<<<<");
             Assert.AreEqual(doc.Surname, "ERIKSSON", "Wrong surname");
             Assert.AreEqual(doc.Name, "ANNA MARIA", "Wrong name");
         }
+
+        [TestMethod]
+        public void TestParserIDFRA()
+        {
+            var parser = new Parser();
+
+            var doc = parser.DetectFields(
+@"IDFRALOISEAU<<<<<<<<<<<<<<<<<<<<<<<<
+970675K002774HERVE<<DJAMEL<7303216M4");
+
+            Assert.AreEqual(doc.Format, MrzFormat.IDFRA, "Wrong document format");
+            Assert.AreEqual(doc.Type, "ID", "Wrong document type");
+            Assert.AreEqual(doc.CountryCode, "FRA", "Wrong document country code");
+            Assert.AreEqual(doc.Number, "970675K00277", "Wrong document number");
+            Assert.AreEqual(doc.BirthDate, new DateTime(1973, 3, 21), "Wrong birth date");
+            Assert.AreEqual(doc.Gender, Gender.Male, "Wrong gender");
+            Assert.AreEqual(doc.Nationality, "FRA", "Wrong nationality country code");
+            Assert.AreEqual(doc.Surname, "LOISEAU", "Wrong surname");
+            Assert.AreEqual(doc.Name, "HERVE, DJAMEL", "Wrong name");
+
+            doc = parser.DetectFields(
+@"IDFRADOUEL<<<<<<<<<<<<<<<<<<<<932013
+0506932020438CHRISTIANE<<NI2906209F3");
+
+            Assert.AreEqual(doc.Format, MrzFormat.IDFRA, "Wrong document format");
+            Assert.AreEqual(doc.Type, "ID", "Wrong document type");
+            Assert.AreEqual(doc.CountryCode, "FRA", "Wrong document country code");
+            Assert.AreEqual(doc.Number, "050693202043", "Wrong document number");
+            Assert.AreEqual(doc.BirthDate, new DateTime(1929, 6, 20), "Wrong birth date");
+            Assert.AreEqual(doc.Gender, Gender.Female, "Wrong gender");
+            Assert.AreEqual(doc.Nationality, "FRA", "Wrong nationality country code");
+            Assert.AreEqual(doc.Surname, "DOUEL", "Wrong surname");
+            Assert.AreEqual(doc.Name, "CHRISTIANE, NI", "Wrong name");
+        }
     }
 }
