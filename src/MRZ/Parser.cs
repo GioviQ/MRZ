@@ -135,7 +135,7 @@ namespace MRZ
                         throw new Exception("Expiration date check failed");
 
                     if (doc.ExpirationDate < doc.BirthDate)
-                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+                        doc.ExpirationDate = doc.ExpirationDate.Value.AddYears(100);
 
                     doc.Nationality = match.Groups[6].Value;
                     doc.OptionalData2 = match.Groups[7].Value.Trim(filler);
@@ -213,7 +213,7 @@ namespace MRZ
                         throw new Exception("Expiration date check failed");
 
                     if (doc.ExpirationDate < doc.BirthDate)
-                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+                        doc.ExpirationDate = doc.ExpirationDate.Value.AddYears(100);
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
 
@@ -276,7 +276,7 @@ namespace MRZ
                     doc.ExpirationDate = parseDate(match.Groups[7].Value);
 
                     if (doc.ExpirationDate < doc.BirthDate)
-                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+                        doc.ExpirationDate = doc.ExpirationDate.Value.AddYears(100);
 
                     if (!checkValidity(line2, 21, 26, 27))
                         throw new Exception("Expiration date check failed");
@@ -348,7 +348,7 @@ namespace MRZ
                         throw new Exception("Expiration date check failed");
 
                     if (doc.ExpirationDate < doc.BirthDate)
-                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+                        doc.ExpirationDate = doc.ExpirationDate.Value.AddYears(100);
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
                     break;
@@ -405,7 +405,7 @@ namespace MRZ
                         throw new Exception("Expiration date check failed");
 
                     if (doc.ExpirationDate < doc.BirthDate)
-                        doc.ExpirationDate = doc.ExpirationDate.AddYears(100);
+                        doc.ExpirationDate = doc.ExpirationDate.Value.AddYears(100);
 
                     doc.OptionalData1 = match.Groups[9].Value.Trim(filler);
                     break;

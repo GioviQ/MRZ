@@ -27,7 +27,7 @@ namespace MRZ
         public string OptionalData1 { get; set; }
         public DateTime BirthDate { get; set; }
         public Gender Gender { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
         public string Nationality { get; set; }
         public string OptionalData2 { get; set; }
         public string Name { get; set; }
