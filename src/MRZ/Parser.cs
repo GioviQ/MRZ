@@ -82,6 +82,10 @@ namespace MRZ
                 case size3 * 2:
                     doc.Format = mrz.StartsWith("V") ? MrzFormat.MRVA : MrzFormat.TD3;
                     break;
+
+                case 69:
+                    doc.Format = MrzFormat.SDL;
+                    break;
             }
 
             switch (doc.Format)
@@ -459,6 +463,46 @@ namespace MRZ
                     if (!checkValidity(mrz, 0, size2 * 2 - 2, size2 * 2 - 1))
                         throw new Exception("upper and lower lines check failed");
 
+                    break;
+
+                case MrzFormat.SDL:
+                    regEx = new Regex($"([A-Z0-9]{{3}})([0-9]{{3}})([D|F|I|R]{{1}}){filler}{{2}}");
+
+                    line1 = mrz.Substring(0, 9);
+
+                    match = regEx.Match(line1);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line1}");
+
+                    regEx = new Regex($"FA(CHE|LIE{{1}})([0-9]{{12}}){filler}{{2}}([0-9]{{6}}){filler}{{5}}");
+
+                    line2 = mrz.Substring(9, 30);
+
+                    match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
+
+                    doc.Type = "FA";
+                    doc.Nationality = doc.CountryCode = match.Groups[1].Value;
+
+                    doc.Number = match.Groups[2].Value;
+
+                    doc.BirthDate = parseDate(match.Groups[3].Value);
+
+                    regEx = new Regex($"([A-Z]+){filler}{{2}}([A-Z]+)");
+
+                    line2 = mrz.Substring(39, 30);
+
+                    match = regEx.Match(line2);
+
+                    if (!match.Success)
+                        throw new Exception($"Invalid document format in {line2}");
+
+                    doc.Surname = match.Groups[1].Value.Trim(filler);
+
+                    doc.Name = match.Groups[2].Value.Trim(filler);
                     break;
             }
 

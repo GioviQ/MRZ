@@ -9,7 +9,8 @@ namespace MRZ
         TD3,
         MRVA,
         MRVB,
-        IDFRA
+        IDFRA,
+        SDL, //Swiss Driving License
     }
 
     public enum Gender

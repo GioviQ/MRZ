@@ -191,5 +191,26 @@ L8988901C4XXX4009078F9612109<<<<<<<<");
             Assert.AreEqual(doc.Surname, "DOUEL", "Wrong surname");
             Assert.AreEqual(doc.Name, "CHRISTIANE, NI", "Wrong name");
         }
+
+        [TestMethod]
+        public void TestParserSDL()
+        {
+            var parser = new Parser();
+
+            var doc = parser.DetectFields(
+@"CTD718D<<
+FACHE123456788001<<800126<<<<<
+MARCHAND<<FABIENNE<<<<<<<<<<<<");
+
+            Assert.AreEqual(doc.Format, MrzFormat.SDL, "Wrong document format");
+            Assert.AreEqual(doc.Type, "FA", "Wrong document type");
+            Assert.AreEqual(doc.CountryCode, "CHE", "Wrong document country code");
+            Assert.AreEqual(doc.Number, "123456788001", "Wrong document number");
+            Assert.AreEqual(doc.BirthDate, new DateTime(1980, 1, 26), "Wrong birth date");
+            Assert.AreEqual(doc.ExpirationDate, null);
+            Assert.AreEqual(doc.Nationality, "CHE", "Wrong nationality country code");
+            Assert.AreEqual(doc.Surname, "MARCHAND", "Wrong surname");
+            Assert.AreEqual(doc.Name, "FABIENNE", "Wrong name");
+        }
     }
 }
