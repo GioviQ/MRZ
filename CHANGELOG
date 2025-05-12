@@ -1,0 +1,42 @@
+2.0.0 (2024-07-06)
+
+Added
+- Mrz property to Document class which contains the capitalized string that was passed to the constructor
+- Unit tests that test for unexpected '|' characters in certain positions
+- Unknown enum variant in the MrzFormat enum with value 0
+- Docstrings
+- Thread-safety
+
+Changed
+- Parsing will now be performed in the constructor of the Document class
+- The Format property has been renamed to DocumentFormat
+- The Type property has been renamed to DocumentType
+- The Number property has been renamed to DocumentNumber
+- For IDFRA, OptionalData1 now contains the last six characters of line one
+- The exception type has been changed from Exception to FormatException
+- Some exception messages have changed
+- All MrzFormat enum values integer values are increased by 1 because of the new Unknown variant with value 0
+- When unspecified, gender is now '\0', which is the default value of char
+- When unspecified, string values are now string.Empty instead of null
+- For IDFRA and SDL, Nationality is now empty instead of the same value as IssuingState, since the documents don't contain information on the owners' nationality
+- SDL can now also contain numbers in names
+- Sealed the Document class
+
+Removed
+- Parser class
+- Gender enum
+- Ability to change the filler character for parsing
+
+Fixed
+- The '|' character being valid in the DocumentType and Gender values and the seventh position of the first SDL line
+- For TD2, '<' was accepted as valid document number check digit
+- Filler characters are now only trimmed from the end of all values, since potentially relevant filler characters were removed from the beginning of OptionalData1 and OptionalData2
+
+1.2.0 (2023-07-17)
+
+Added
+- Support for Swiss driving licenses
+
+1.1.1 (2023-07-06)
+
+- Initial release

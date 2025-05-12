@@ -2,29 +2,31 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-    <Version>1.2.0</Version>
+    <RepoRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'LICENSE'))</RepoRoot>
+    <RootNamespace>MRZ</RootNamespace>
+    <AssemblyName>MRZ</AssemblyName>
     <Authors>Giovanni Quarella</Authors>
-    <PackageTags>checker;parser;passport;icao;visas;mrz;id-card;icao-codes;travel-documents;td1;td2;td3;mrva;mrvb</PackageTags>
+    <Product>MRZ</Product>
+    <Version>2.0.0</Version>
+    <Copyright>Copyright © Giovanni Quarella 2021</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageIcon>icon.png</PackageIcon>
-    <Description>MRZ Parser</Description>
-    <RepositoryUrl>https://github.com/GioviQ/MRZ</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/GioviQ/MRZ</PackageProjectUrl>
-    <PackageIconUrl />
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageId>MRZ</PackageId>
+    <Description>MRZ Parser</Description>
+    <PackageTags>checker;parser;passport;icao;visas;mrz;id-card;icao-codes;travel-documents;td1;td2;td3;mrva;mrvb</PackageTags>
+    <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(RepoRoot)/CHANGELOG"))</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile Condition="$(Configuration) == 'Release'">true</GenerateDocumentationFile>
   </PropertyGroup>
 	
   <ItemGroup>
-    <None Include="..\..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+    <Content Include="$(RepoRoot)/LICENSE;$(RepoRoot)/README.md;$(RepoRoot)/CHANGELOG;$(RepoRoot)/icon.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
 
 </Project>
