@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRZ", "MRZ\MRZ.csproj", "{8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRZ.Tests", "MRZ.Tests\MRZ.Tests.csproj", "{62D303CE-5814-4687-90B8-5053B4812EBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRZ.Benchmarks", "MRZ.Benchmarks\MRZ.Benchmarks.csproj", "{2051D835-6E5B-45E6-B1A9-8335EDCB4F09}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{62D303CE-5814-4687-90B8-5053B4812EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D303CE-5814-4687-90B8-5053B4812EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D303CE-5814-4687-90B8-5053B4812EBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2051D835-6E5B-45E6-B1A9-8335EDCB4F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2051D835-6E5B-45E6-B1A9-8335EDCB4F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2051D835-6E5B-45E6-B1A9-8335EDCB4F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2051D835-6E5B-45E6-B1A9-8335EDCB4F09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
